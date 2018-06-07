@@ -2,6 +2,22 @@ import argparse
 import os.path
 import sys
 
+from commonregex import CommonRegex
+
+
+def get_sites_urls(text):
+    sites_links = CommonRegex(text).links
+
+    sites_urls = []
+
+    for link in sites_links:
+        if link.startswith('http://') or link.startswith('https://'):
+            sites_urls.append(link)
+        else:
+            sites_urls.append(''.join(('http://', link)))
+
+    return sites_urls
+
 
 def load_text_data(filepath):
     if not os.path.exists(filepath):
