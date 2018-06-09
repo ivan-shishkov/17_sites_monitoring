@@ -92,6 +92,21 @@ def parse_command_line_arguments():
     return command_line_arguments
 
 
+def get_sites_check_results(sites_urls):
+    sites_check_results = {}
+
+    for site_url in sites_urls:
+        result_check_response_ok = check_server_response_ok(site_url)
+        result_check_domain_expiration_date = check_domain_expiration_date(
+            url=site_url,
+        )
+        sites_check_results[site_url] = (
+            result_check_response_ok,
+            result_check_domain_expiration_date,
+        )
+    return sites_check_results
+
+
 def main():
     command_line_arguments = parse_command_line_arguments()
 
