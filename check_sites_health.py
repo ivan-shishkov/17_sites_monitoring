@@ -107,6 +107,42 @@ def get_sites_check_results(sites_urls):
     return sites_check_results
 
 
+def get_description_check_response(check_response_result):
+    if check_response_result is None:
+        return 'Could not get response'
+
+    if check_response_result:
+        return 'OK (status code is 200)'
+    else:
+        return 'BAD (status code is not 200)'
+
+
+def get_description_check_expiration_date(check_expiration_date_result):
+    if check_expiration_date_result is None:
+        return 'Could not get info about expiration date'
+
+    if check_expiration_date_result:
+        return 'Great than 1 month'
+    else:
+        return 'Less than 1 month'
+
+
+def print_site_check_results(site_check_results):
+    check_response_result, check_expiration_date_result = site_check_results
+    print('Check server response result: {}'.format(
+        get_description_check_response(check_response_result),
+    ))
+    print('Check domain expiration date result: {}'.format(
+        get_description_check_expiration_date(check_expiration_date_result),
+    ))
+
+
+def print_sites_check_results(sites_check_results):
+    for site_url in sorted(sites_check_results.keys()):
+        print('\nChecked site: {}'.format(site_url))
+        print_site_check_results(sites_check_results[site_url])
+
+
 def main():
     command_line_arguments = parse_command_line_arguments()
 
@@ -122,6 +158,16 @@ def main():
 
     if not text:
         sys.exit('file is empty')
+
+    print('Checking sites...')
+
+    sites_check_results = get_sites_check_results(
+        sites_urls=get_sites_urls(text),
+    )
+
+    print_sites_check_results(
+        sites_check_results=sites_check_results,
+    )
 
 
 if __name__ == '__main__':
