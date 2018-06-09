@@ -3,6 +3,25 @@ import os.path
 import sys
 
 from commonregex import CommonRegex
+import requests
+from requests.exceptions import ConnectionError
+
+
+def execute_head_request(url):
+    try:
+        response = requests.head(url, allow_redirects=True)
+        return response
+    except ConnectionError:
+        return None
+
+
+def check_server_response_ok(url):
+    response = execute_head_request(url)
+
+    if response is None:
+        return None
+
+    return response.status_code == requests.codes.ok
 
 
 def get_sites_urls(text):
