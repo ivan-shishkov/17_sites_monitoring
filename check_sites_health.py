@@ -1,10 +1,13 @@
 import argparse
 import os.path
 import sys
+import socket
+from datetime import datetime, timedelta
 
 from commonregex import CommonRegex
 import requests
 from requests.exceptions import ConnectionError
+from whois import whois
 
 
 def execute_head_request(url):
@@ -22,6 +25,37 @@ def check_server_response_ok(url):
         return None
 
     return response.status_code == requests.codes.ok
+
+
+def get_whois_info(url):
+    try:
+        whois_info = whois(url)
+        return whois_info
+    except socket.gaierror:
+        return None
+
+
+def get_domain_expiration_date(domain_whois_info):
+    expiration_date = domain_whois_info.expiration_date
+
+    if isinstance(expiration_date, list):
+        return expiration_date[0]
+    else:
+        return expiration_date
+
+
+def check_domain_expiration_date(url, min_remaining_time=timedelta(days=30)):
+    domain_whois_info = get_whois_info(url)
+
+    if domain_whois_info is None:
+        return None
+
+    domain_expiration_date = get_domain_expiration_date(domain_whois_info)
+
+    if domain_expiration_date is None:
+        return None
+
+    return domain_expiration_date > datetime.now() + min_remaining_time
 
 
 def get_sites_urls(text):
