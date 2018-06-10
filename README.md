@@ -30,6 +30,27 @@ optional arguments:
 
 ```
 
+Example of script launch on Linux:
+
+```bash
+
+$ python3 check_sites_health.py sites_urls.txt
+Checking sites...
+
+Site URL: http://devman.org
+Server response check result: OK (status code is 200)
+Domain expiration date check result: Expires in more than 1 month
+
+Site URL: http://pythonz.net
+Server response check result: OK (status code is 200)
+Domain expiration date check result: Expires in more than 1 month
+
+Site URL: http://qazxsw.ru
+Server response check result: Could not get response
+Domain expiration date check result: Could not get info about expiration date
+
+```
+
 # Project Goals
 
 The code is written for educational purposes. Training course for web-developers - [DEVMAN.org](https://devman.org)
