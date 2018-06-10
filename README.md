@@ -1,6 +1,10 @@
 # Sites Monitoring Utility
 
-[TODO. There will be project description]
+This script is intended for monitoring of sites state by checking that:
+
+* response status code of the server is equal to 200 (HTTP OK)
+* domain name expires in more than 1 month
+
 
 # Project Goals
 
