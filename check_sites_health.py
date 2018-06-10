@@ -129,17 +129,17 @@ def get_description_check_expiration_date(check_expiration_date_result):
 
 def print_site_check_results(site_check_results):
     check_response_result, check_expiration_date_result = site_check_results
-    print('Check server response result: {}'.format(
+    print('Server response check result: {}'.format(
         get_description_check_response(check_response_result),
     ))
-    print('Check domain expiration date result: {}'.format(
+    print('Domain expiration date check result: {}'.format(
         get_description_check_expiration_date(check_expiration_date_result),
     ))
 
 
 def print_sites_check_results(sites_check_results):
     for site_url in sorted(sites_check_results.keys()):
-        print('\nChecked site: {}'.format(site_url))
+        print('\nSite URL: {}'.format(site_url))
         print_site_check_results(sites_check_results[site_url])
 
 
