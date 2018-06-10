@@ -15,6 +15,21 @@ $ pip install -r requirements.txt
 
 ```
 
+Usage:
+
+```bash
+
+$ python3 check_sites_health.py -h
+usage: check_sites_health.py [-h] filename
+
+positional arguments:
+  filename    a text file containing URLs of checked sites
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+```
+
 # Project Goals
 
 The code is written for educational purposes. Training course for web-developers - [DEVMAN.org](https://devman.org)
