@@ -59,11 +59,11 @@ def check_domain_expiration_date(url, min_remaining_time=timedelta(days=30)):
 
 
 def get_sites_urls(text):
-    sites_links = CommonRegex(text).links
+    links = CommonRegex(text).links
 
     sites_urls = []
 
-    for link in sites_links:
+    for link in links:
         if link.startswith('http://') or link.startswith('https://'):
             sites_urls.append(link)
         else:
@@ -96,42 +96,42 @@ def get_sites_check_results(sites_urls):
     sites_check_results = {}
 
     for site_url in sites_urls:
-        result_check_response_ok = check_server_response_ok(site_url)
-        result_check_domain_expiration_date = check_domain_expiration_date(
+        server_response_check_result = check_server_response_ok(site_url)
+        domain_expiration_date_check_result = check_domain_expiration_date(
             url=site_url,
         )
         sites_check_results[site_url] = (
-            result_check_response_ok,
-            result_check_domain_expiration_date,
+            server_response_check_result,
+            domain_expiration_date_check_result,
         )
     return sites_check_results
 
 
-def get_description_check_response(check_response_result):
-    descriptions_check_response = {
+def get_description_check_response(check_result):
+    response_check_result_descriptions = {
         None: 'Could not get response',
         True: 'OK (status code is 200)',
         False: 'BAD (status code is not 200)',
     }
-    return descriptions_check_response[check_response_result]
+    return response_check_result_descriptions[check_result]
 
 
-def get_description_check_expiration_date(check_expiration_date_result):
-    descriptions_check_expiration_date = {
+def get_description_check_expiration_date(check_result):
+    expiration_date_check_result_descriptions = {
         None: 'Could not get info about expiration date',
         True: 'Expires in more than 1 month',
         False: 'Expires in less than 1 month',
     }
-    return descriptions_check_expiration_date[check_expiration_date_result]
+    return expiration_date_check_result_descriptions[check_result]
 
 
 def print_site_check_results(site_check_results):
-    check_response_result, check_expiration_date_result = site_check_results
+    response_check_result, expiration_date_check_result = site_check_results
     print('Server response check result: {}'.format(
-        get_description_check_response(check_response_result),
+        get_description_check_response(response_check_result),
     ))
     print('Domain expiration date check result: {}'.format(
-        get_description_check_expiration_date(check_expiration_date_result),
+        get_description_check_expiration_date(expiration_date_check_result),
     ))
 
 
