@@ -108,13 +108,12 @@ def get_sites_check_results(sites_urls):
 
 
 def get_description_check_response(check_response_result):
-    if check_response_result is None:
-        return 'Could not get response'
-
-    if check_response_result:
-        return 'OK (status code is 200)'
-    else:
-        return 'BAD (status code is not 200)'
+    descriptions_check_response = {
+        None: 'Could not get response',
+        True: 'OK (status code is 200)',
+        False: 'BAD (status code is not 200)',
+    }
+    return descriptions_check_response[check_response_result]
 
 
 def get_description_check_expiration_date(check_expiration_date_result):
