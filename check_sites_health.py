@@ -117,13 +117,12 @@ def get_description_check_response(check_response_result):
 
 
 def get_description_check_expiration_date(check_expiration_date_result):
-    if check_expiration_date_result is None:
-        return 'Could not get info about expiration date'
-
-    if check_expiration_date_result:
-        return 'Great than 1 month'
-    else:
-        return 'Less than 1 month'
+    descriptions_check_expiration_date = {
+        None: 'Could not get info about expiration date',
+        True: 'Expires in more than 1 month',
+        False: 'Expires in less than 1 month',
+    }
+    return descriptions_check_expiration_date[check_expiration_date_result]
 
 
 def print_site_check_results(site_check_results):
