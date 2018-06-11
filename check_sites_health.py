@@ -35,18 +35,18 @@ def get_domain_expiration_date(domain_whois_info):
         return expiration_date
 
 
-def check_domain_expiration_date(url, min_remaining_time=timedelta(days=30)):
+def check_domain_expiration_date(url, remaining_days=30):
     domain_whois_info = get_whois_info(url)
 
     if domain_whois_info is None:
         return None
 
-    domain_expiration_date = get_domain_expiration_date(domain_whois_info)
+    expiration_date = get_domain_expiration_date(domain_whois_info)
 
-    if domain_expiration_date is None:
+    if expiration_date is None:
         return None
 
-    return domain_expiration_date > datetime.now() + min_remaining_time
+    return expiration_date > datetime.now() + timedelta(days=remaining_days)
 
 
 def get_sites_urls(text):
