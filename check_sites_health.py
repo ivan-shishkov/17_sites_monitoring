@@ -50,17 +50,7 @@ def check_domain_expiration_date(url, remaining_days=30):
 
 
 def get_sites_urls(text):
-    links = CommonRegex(text).links
-
-    sites_urls = []
-
-    for link in links:
-        if link.startswith('http://') or link.startswith('https://'):
-            sites_urls.append(link)
-        else:
-            sites_urls.append(''.join(('http://', link)))
-
-    return sites_urls
+    return CommonRegex(text).links
 
 
 def load_text_data(filepath):
