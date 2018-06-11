@@ -10,21 +10,12 @@ from requests.exceptions import ConnectionError
 from whois import whois
 
 
-def execute_head_request(url):
+def check_server_response_ok(url):
     try:
-        response = requests.head(url, allow_redirects=True)
-        return response
+        response = requests.get(url)
+        return response.ok
     except ConnectionError:
         return None
-
-
-def check_server_response_ok(url):
-    response = execute_head_request(url)
-
-    if response is None:
-        return None
-
-    return response.status_code == requests.codes.ok
 
 
 def get_whois_info(url):
